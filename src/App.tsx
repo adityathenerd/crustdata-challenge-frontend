@@ -134,7 +134,7 @@ const App: React.FC = () => {
                             : "bg-cyan-800/30 border border-cyan-700/50 text-cyan-50"
                         )}
                       >
-                        <ReactMarkdown className="prose prose-invert max-w-none">
+                        <ReactMarkdown className="prose prose-invert max-w-full">
                           {msg.text}
                         </ReactMarkdown>
                       </div>
