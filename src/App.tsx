@@ -22,38 +22,38 @@ const App: React.FC = () => {
   useEffect(scrollToBottom, [messages]);
 
   const handleSubmit = async () => {
-    if (!query.trim()) {
-      setError("Please enter a valid query.");
-      return;
+  if (!query.trim()) {
+    setError("Please enter a valid query.");
+    return;
+  }
+
+  setError(null);
+  setLoading(true);
+  setMessages((prev) => [...prev, { text: query, sender: "user" }]);
+
+  try {
+    const res = await fetch("https://crustdata-challenge-yyyv.onrender.com/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question: query }), // Updated to send { "question": "..." }
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch response. Please try again.");
     }
 
-    setError(null);
-    setLoading(true);
-    setMessages((prev) => [...prev, { text: query, sender: "user" }]);
+    const data = await res.json();
+    setMessages((prev) => [...prev, { text: data.message, sender: "ai" }]);
+    setQuery("");
+  } catch (err: any) {
+    setError(err.message || "Something went wrong.");
+  } finally {
+    setLoading(false);
+  }
+};
 
-    try {
-      const res = await fetch("https://level-hackathon-backend.onrender.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch response. Please try again.");
-      }
-
-      const data = await res.json();
-      setMessages((prev) => [...prev, { text: data.message, sender: "ai" }]);
-      setQuery("");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
