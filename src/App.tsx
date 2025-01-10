@@ -70,7 +70,7 @@ const App: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <Zap className="h-8 w-8 text-cyan-400" />
                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
-                  HoloAI
+                  Crustdata AI Docs
                 </span>
               </div>
             </div>
@@ -96,7 +96,7 @@ const App: React.FC = () => {
                   >
                     <Bot className="h-16 w-16 mb-4" />
                     <p className="text-xl">
-                      How can I assist you in this digital realm?
+                      How can I assist you with the documentation, Padawan?
                     </p>
                   </motion.div>
                 ) : (
