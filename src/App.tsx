@@ -45,7 +45,7 @@ const App: React.FC = () => {
     }
 
     const data = await res.json();
-    setMessages((prev) => [...prev, { text: data.message, sender: "ai" }]);
+    setMessages((prev) => [...prev, { text: data.answer, sender: "ai" }]);
     setQuery("");
   } catch (err: any) {
     setError(err.message || "Something went wrong.");
